@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import BookDetails from './BookDetails'
 
 class Bookshelf extends Component {

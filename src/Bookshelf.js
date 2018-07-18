@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import BookDetails from './BookDetails'
+import PropTypes from 'prop-types'
 
 class Bookshelf extends Component {
+
+    //Check if the Type of variables are correct
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        updateBooks: PropTypes.func.isRequired,
+        BookshelfName: PropTypes.string.isRequired
+        }
 
     render() {
         const { BookshelfName, updateBooks, books } = this.props
@@ -15,6 +23,7 @@ class Bookshelf extends Component {
                                 <BookDetails
                                     book={book}
                                     updateBooks={updateBooks}
+                                    books={books}
                                 />
                             </li>
                         )

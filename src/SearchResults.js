@@ -3,33 +3,40 @@ import BookDetails from './BookDetails'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import sortBy from 'sort-by'
+import PropTypes from 'prop-types'
 
 class SearchResults extends Component {
+
+    //Check if the Type of variables are correct
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        updateBooks: PropTypes.func.isRequired
+      }
 
     state = {
         query: '',
         bookList: []
     }
 
+    //show the results on screen
     updateQuery = (query) => {
         this.setState({ query })
 
         if (query) {
             BooksAPI.search(query).then(results => {
                 this.setState({ bookList: results })
-                console.log(results)
-                console.log(query)
             })
         }
         else
             this.setState({ bookList: [] })
 
-        if(this.state.bookList.length > 0)
-        this.state.bookList.sort(sortBy('title'))
-        }
+        //sorting the results
+        if (this.state.bookList.length > 0)
+            this.state.bookList.sort(sortBy('title'))
+    }
 
     render() {
-        const { updateBooks } = this.props
+        const { books, updateBooks } = this.props
         const { query, bookList } = this.state
 
         return (
@@ -59,6 +66,7 @@ class SearchResults extends Component {
                                     <BookDetails
                                         book={book}
                                         updateBooks={updateBooks}
+                                        books={books}
                                     />
                                 </li>))}
                         </ol>
